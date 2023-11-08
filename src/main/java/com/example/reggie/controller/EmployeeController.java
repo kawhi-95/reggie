@@ -89,13 +89,13 @@ public class EmployeeController {
         employee.setPassword(password);
 
         // 获取当前登录人的id
-        Long empID = (Long) request.getSession().getAttribute("employee");
+        // Long empID = (Long) request.getSession().getAttribute("employee");
 
         // 设置初始信息
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empID);
-        employee.setCreateUser(empID);
+        //  employee.setCreateTime(LocalDateTime.now());
+        //  employee.setUpdateTime(LocalDateTime.now());
+        //  employee.setUpdateUser(empID);
+        //  employee.setCreateUser(empID);
         employee.setStatus(0);
 
         employeeService.save(employee);
@@ -135,10 +135,17 @@ public class EmployeeController {
         log.info(employee.toString());
 
         Long empID = (Long) request.getSession().getAttribute("employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empID);
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(empID);
 
         employeeService.updateById(employee);
         return Result.error("更新信息成功");
+    }
+
+    @GetMapping("/{id}")
+    public Result<Employee> getByID(@PathVariable Long id) {
+        log.info("根据id查询员工信息");
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
     }
 }

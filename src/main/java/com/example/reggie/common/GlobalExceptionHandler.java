@@ -32,4 +32,11 @@ public class GlobalExceptionHandler {
 
         return Result.error("未知错误");
     }
+
+    @ExceptionHandler(CustomException.class)
+    public Result<String> SqlExceptionHandler(CustomException ex){
+        log.info("捕获到CustomException异常, {}", ex.getMessage());
+
+        return Result.error(ex.getMessage());
+    }
 }

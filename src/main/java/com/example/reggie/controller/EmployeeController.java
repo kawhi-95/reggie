@@ -83,7 +83,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
-    public Result<String> save(HttpServletRequest request, @RequestBody Employee employee) {
+    public Result<String> save(@RequestBody Employee employee) {
         // 加密初始密码密码123456并设置
         String password =  DigestUtils.md5DigestAsHex("123456".getBytes());
         employee.setPassword(password);
@@ -134,7 +134,7 @@ public class EmployeeController {
     public Result<String> update(HttpServletRequest request, @RequestBody Employee employee) {
         log.info(employee.toString());
 
-        Long empID = (Long) request.getSession().getAttribute("employee");
+//        Long empID = (Long) request.getSession().getAttribute("employee");
 //        employee.setUpdateTime(LocalDateTime.now());
 //        employee.setUpdateUser(empID);
 

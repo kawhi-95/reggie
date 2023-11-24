@@ -91,14 +91,13 @@
         </el-table-column>
       </el-table>
       <el-pagination
-        class="pageList"
-        :page-sizes="[10, 20, 30]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="counts"
-        :current-page.sync="page"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+              class="pageList"
+              :page-sizes="[10, 20, 30, 40]"
+              :page-size=pageSize
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="counts"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
       ></el-pagination>
     </div>
   </div>
@@ -137,9 +136,9 @@
         methods: {
           async init () {
             const params = {
-              page: this.page,
-              pageSize: this.pageSize,
-              name: this.input ? this.input : undefined
+              "page": this.page,
+              "pageSize": this.pageSize,
+              "name": this.input ? this.input : undefined
             }
             await getMemberList(params).then(res => {
               if (String(res.code) === '1') {

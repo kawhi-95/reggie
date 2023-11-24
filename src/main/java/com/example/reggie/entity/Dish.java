@@ -27,7 +27,8 @@ public class Dish implements Serializable {
     private String name;
 
 
-    //菜品分类id
+    // 前后端传递Long时，会出现精度错误，为了防止精度错误
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long categoryId;
 
 

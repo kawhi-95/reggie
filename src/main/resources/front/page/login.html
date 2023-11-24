@@ -60,14 +60,14 @@
             methods:{
                 getCode(){
                     this.form.code = ''
-                    const regex = /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})$/;
-                    if (regex.test(this.form.phone)) {
+                    // const regex = /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})$/;
+                    // if (regex.test(this.form.phone)) {
                         this.msgFlag = false
                         //this.form.code = (Math.random()*1000000).toFixed(0)
                         sendMsgApi({phone:this.form.phone})
-                    }else{
-                        this.msgFlag = true
-                    }
+                    // }else{
+                    //     this.msgFlag = true
+                    // }
                 },
                 async btnLogin(){
                     if(this.form.phone && this.form.code){

@@ -4,12 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 // 用来看日志
 @Slf4j
 // 该注解会去扫描@WebFilter注解
 @SpringBootApplication
 @ServletComponentScan
+// 开启对@Transactional的支持
+@EnableTransactionManagement
 public class ReggieApplication {
 
     public static void main(String[] args) {

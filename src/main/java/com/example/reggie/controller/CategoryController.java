@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.reggie.common.Result;
 import com.example.reggie.entity.Category;
-import com.example.reggie.entity.Dish;
 import com.example.reggie.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -46,7 +47,7 @@ public class CategoryController {
         Page<Category> pageInfo = new Page(page, pageSize);
         // 构建条件构造器
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        // 添加一个过滤条件
+        // 添加过滤条件
         queryWrapper.orderByAsc(Category::getSort);
 
         log.info(pageInfo.toString());
@@ -78,10 +79,14 @@ public class CategoryController {
     @GetMapping("list")
     public Result<List<Category>> list(Long type) {
         log.info("接收到请求类型为: {}分类", type);
-        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        categoryLambdaQueryWrapper.eq(Category::getType, type);
+        //条件构造器
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        //添加条件
+        queryWrapper.eq(type != null && type != null, Category::getType, type);
+        //添加排序条件
+        queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
 
-        List<Category> categories = categoryService.list(categoryLambdaQueryWrapper);
+        List<Category> categories = categoryService.list(queryWrapper);
 
         return Result.success(categories);
     }

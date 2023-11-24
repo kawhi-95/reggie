@@ -23,7 +23,9 @@ public class LoginFilter implements Filter {
             "/employee/login",
             "employee/logout",
             "/backend/**",
-            "/front/**"
+            "/front/**",
+            "/user/login",
+            "/user/logout"
     };
 
     /**
@@ -56,12 +58,14 @@ public class LoginFilter implements Filter {
             return;
         }
         // 4.
-        if (request.getSession().getAttribute("employee") != null) {
+        if (request.getSession().getAttribute("employee") != null || request.getSession().getAttribute("user") != null) {
             // 获取用户id 放入ThreadLocal
             Long empID = (Long) request.getSession().getAttribute("employee");
-            log.info("本次请求用户已经登陆, 用户id为：{}", empID);
+            Long userID = (Long) request.getSession().getAttribute("user");
+            log.info("本次请求用户已经登陆, emp用户id为：{}", empID);
+            log.info("本次请求用户已经登陆, user用户id为：{}", userID);
 
-            BaseContext.setCurrentId(empID);
+            BaseContext.setCurrentId(empID!=null?empID:userID);
 
             filterChain.doFilter(request, response);
             return;

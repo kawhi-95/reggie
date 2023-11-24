@@ -1,5 +1,7 @@
 package com.example.reggie.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // 前后端传递Long时，会出现精度错误，为了防止精度错误
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     //订单号

@@ -25,7 +25,8 @@ public class LoginFilter implements Filter {
             "/backend/**",
             "/front/**",
             "/user/login",
-            "/user/logout"
+            "/user/logout",
+            "/user/sendMsg"
     };
 
     /**
